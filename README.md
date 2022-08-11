@@ -26,7 +26,7 @@ nano /etc/sudoers
 
 ***nifi    ALL=(ALL:ALL) ALL***
 
-Saia e salve.
+Salve e saía do arquivo.
 
 - Acessando com o novo usuário.
 
@@ -59,17 +59,15 @@ update-alternatives --config java
 
 >***Observação:*** Use o local ***'/usr/lib/jvm/java-8-openjdk-amd64'*** para variável de ambiente do Java.
 
-- Adicione a variável ***JAVA_HOME*** nos arquivos:
+- Adicione a variável ***JAVA_HOME*** no arquivo:
 
-*- ‘.bashrc’ (Execute o ‘source .bashrc’ comando depois de sair da edição)*
+***‘.bashrc’*** *(Execute o* ***‘source .bashrc’*** *comando depois de sair da edição)*
 
 ```bash
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 ```
 
-Salve e saia do arquivo.
-
->***Observação:*** *‘/opt/nifi/bin/nifi-env.sh’* *(Edite esse arquivo depois que descompactar os arquivos de instalação do Nifi)*
+Salve e saía do arquivo.
 
 - Verificar se a variável ***JAVA_HOME*** e o ***JAVA*** foram instalados com sucesso:
 
@@ -95,21 +93,33 @@ sudo wget https://archive.apache.org/dist/nifi/1.16.3/nifi-1.16.3-bin.tar.gz
 
 - Preparando para instalação
 
+Descompactando os arquivos.
+
 ```bash
-sudo tar -zxvf nifi-1.16.3-bin.tar.gz (descompactando os arquivos)
+sudo tar -zxvf nifi-1.16.3-bin.tar.gz
 ```
+
+Renomeando a pasta para nifi.
+
 ```bash
-sudo mv nifi-1.16.3/ nifi (renomeando a pasta para nifi) 
+sudo mv nifi-1.16.3/ nifi
 ```
+
+Mudando a propriedade da pasta nifi para o usuário nifi.
+
 ```bash
-sudo chown -R nifi:nifi nifi/ (mudando a propriedade da pasta nifi para o usuário nifi)
+sudo chown -R nifi:nifi nifi/
 ```
+
+Adicione a variável ***‘export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64’*** as variáveis do nifi.
+
 ```bash
 cd /opt/nifi
+nano nifi/bin/nifi-env.sh
 ```
-```bash
-nano nifi/bin/nifi-env.sh (adicione a variável ‘export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64’ as variáveis do nifi)
-```
+
+Executando a instalação
+
 ```bash
 sudo bin/nifi.sh install
 ```
