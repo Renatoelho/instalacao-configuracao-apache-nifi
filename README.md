@@ -111,7 +111,7 @@ Mudando a propriedade da pasta nifi para o usuário nifi.
 sudo chown -R nifi:nifi nifi/
 ```
 
-Adicione a variável ***‘export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64’*** as variáveis do nifi.
+Adicione a variável ***‘export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64’*** as variáveis do nifi (Salve e saía do arquivo).
 
 ```bash
 cd /opt/nifi
