@@ -123,6 +123,7 @@ nano /opt/nifi/conf/nifi.properties
 ```
 
 ***nifi.web.https.host=0.0.0.0***
+
 ***nifi.web.https.port=8443***
 
 - Ativando o serviço do Nifi
@@ -136,7 +137,7 @@ sudo service nifi start (start|stop|restart|status)
 service nifi status
 ```
 
-![Apache Nifi](https://drive.google.com/uc?export=1Di5m_rF3wqrJzpv6qG7n5fAtyOIzBeJj)
+![Apache Nifi](https://drive.google.com/uc?export=view&id=1Di5m_rF3wqrJzpv6qG7n5fAtyOIzBeJj)
 
 Acesse via: https://127.0.0.1:8443/nifi/ 
 
@@ -148,7 +149,7 @@ tail /opt/nifi/logs/nifi-app.log -f
 
 ## Primeiro acesso ao Apache Nifi
 
-![Apache Nifi](https://drive.google.com/uc?export=1kP83DoMyTt1BQsPSaH8D4bjd-JdvMriG)
+![Apache Nifi](https://drive.google.com/uc?export=view&id=1kP83DoMyTt1BQsPSaH8D4bjd-JdvMriG)
 
 >***Observação:*** Se você for direcionado para tela de login, as credenciais de acesso estão no arquivo de log do nifi.
 
@@ -167,4 +168,4 @@ Generated Password [***********************************************]
 
 ### Pronto! Apache Nifi em funcionamento
 
-![Apache Nifi](https://drive.google.com/uc?export=14jYwCSvjTskyEemHxVbsDE0eIRpOcrE9)
+![Apache Nifi](https://drive.google.com/uc?export=view&id=14jYwCSvjTskyEemHxVbsDE0eIRpOcrE9)
