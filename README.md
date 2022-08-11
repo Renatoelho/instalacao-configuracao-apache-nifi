@@ -2,9 +2,9 @@
 
 - Requisitos
 
-***Ubuntu 20.04 LTS***
-***Java JDK 1.8***
-***Apache Nifi 1.16.3***
+***Ubuntu 20.04 LTS***<br>
+***Java JDK 1.8***<br>
+***Apache Nifi 1.16.3***<br>
 
 ## Criando usuário para instalação e configuração
 
@@ -122,8 +122,7 @@ Acesse o arquivo ***‘/opt/nifi/conf/nifi.properties’*** e altere as seguinte
 nano /opt/nifi/conf/nifi.properties
 ```
 
-***nifi.web.https.host=0.0.0.0***
-
+***nifi.web.https.host=0.0.0.0***<br>
 ***nifi.web.https.port=8443***
 
 - Ativando o serviço do Nifi
