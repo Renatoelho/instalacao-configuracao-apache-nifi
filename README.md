@@ -33,10 +33,6 @@ usermod -aG sudo nifi
 su - nifi
 ```
 
-# Instalação Apache Nifi
-
-> ***Observação:*** Inicie a instalação e configuração com usuário Nifi.
-
 ### Atualização do ambiente
 
 ```bash
