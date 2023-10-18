@@ -9,7 +9,7 @@
 - Wget 1.20.3 ou +
 - Zip/Unzip 3.0 ou +
 
-### Criando usuário para instalação e configuração
+### Criando usuário para instalação e configuração (no sistema operacional)
 
 - Criando usuário ***nifi***. (crie com o root)
 
@@ -39,7 +39,7 @@ su - nifi
 sudo apt update && sudo apt upgrade -y
 ```
 
-### Instalação do JAVA 1.8:
+### Instalação e configuração do JAVA
 
 ```bash
 sudo apt install openjdk-8-jdk -y
@@ -83,7 +83,7 @@ env | grep -Ei java_home
 java -version
 ```
 
-### Baixando o Apache Nifi versão .zip
+### Baixando o Apache Nifi na versão .zip
 
 ```bash
 sudo wget https://archive.apache.org/dist/nifi/1.22.0/nifi-1.22.0-bin.zip
