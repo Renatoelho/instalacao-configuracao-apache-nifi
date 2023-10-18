@@ -1,32 +1,31 @@
 # Instalação e Configuração Apache Nifi
 
-- Requisitos
+### Requisitos
 
-***Ubuntu 20.04 LTS***<br>
-***Java JDK 1.8***<br>
-***Apache Nifi 1.16.3***<br>
+- Ubuntu 20.04
+- Apache Nifi 1.22.0 ou +
+- Java OpenJDK 1.8.0_382 +
+- Nano 4.8 ou +
+- Wget 1.20.3 ou +
+- Zip/Unzip 3.0 ou +
 
-## Criando usuário para instalação e configuração
+### Criando usuário para instalação e configuração
 
-- Criando usuário ***‘nifi’***. (crie com o root)
+- Criando usuário ***nifi***. (crie com o root)
 
 ```bash
 su
+```
+
+```bash
 adduser nifi
 ```
 
-- Acesse o arquivo ***‘/etc/sudoers’*** e adicione o novo usuário com as mesmas permissões de superusuário.
+- Adicionando o novo usuário ao grupo de superusuários (sudo).
 
 ```bash
-su
-nano /etc/sudoers
+usermod -aG sudo nifi
 ```
-
-- Adicione o seguinte texto:
-
-***nifi    ALL=(ALL:ALL) ALL***
-
-Salve e saía do arquivo.
 
 - Acessando com o novo usuário.
 
@@ -36,32 +35,33 @@ su - nifi
 
 # Instalação Apache Nifi
 
->***Observação:*** Inicie a instalação com usuário Nifi.
+> ***Observação:*** Inicie a instalação e configuração com usuário Nifi.
 
-- Atualização do ambiente:
+### Atualização do ambiente
 
 ```bash
-su - nifi
-sudo apt update && apt upgrade -y
+sudo apt update && sudo apt upgrade -y
 ```
 
-- Instalação do JAVA 1.8:
+### Instalação do JAVA 1.8:
 
 ```bash
 sudo apt install openjdk-8-jdk -y
 ```
 
-- Verificar e capturar o diretório do JAVA instalado:
+- Verifique em qual diretório o JAVA está instalado:
 
 ```bash
 update-alternatives --config java
 ```
 
->***Observação:*** Use o local ***'/usr/lib/jvm/java-8-openjdk-amd64'*** para variável de ambiente do Java.
+>***Observação:*** Use o local ***/usr/lib/jvm/java-8-openjdk-amd64*** para variável de ambiente do Java.
 
-- Adicione a variável ***JAVA_HOME*** no arquivo:
+- Adicione a variável ***JAVA_HOME*** no arquivo ***.bashrc***:
 
-***‘.bashrc’*** *(Execute o* ***‘source .bashrc’*** *comando depois de sair da edição)*
+```bash
+nano ~/.bashrc
+```
 
 ```bash
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
@@ -69,112 +69,169 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
 Salve e saía do arquivo.
 
-- Verificar se a variável ***JAVA_HOME*** e o ***JAVA*** foram instalados com sucesso:
+- Atualize o contexto do ambiente executando o seguinte comando:
 
 ```bash
-env | grep JAVA_HOME
+source .bashrc
 ```
 
-***Ou***
+- Verifique se a variável ***JAVA_HOME*** e o ***JAVA*** foram configurados/instalados com sucesso:
+
+```bash
+env | grep -Ei java_home
+```
+
+***E/Ou***
 
 ```bash
 java -version
 ```
 
-- Baixando os arquivos da instalação
+### Baixando o Apache Nifi versão .zip
 
 ```bash
-su - hifi
-cd /opt/
-sudo wget https://archive.apache.org/dist/nifi/1.16.3/nifi-1.16.3-bin.tar.gz
+sudo wget https://archive.apache.org/dist/nifi/1.22.0/nifi-1.22.0-bin.zip
 ```
 
->***Observação:*** Se tiver desatualizado pegue um novo link em: *https://archive.apache.org/dist/nifi/*
-
-- Preparando para instalação
-
-Descompactando os arquivos.
+### Descompactando o arquivo zipado
 
 ```bash
-sudo tar -zxvf nifi-1.16.3-bin.tar.gz
+unzip nifi-1.22.0-bin.zip
 ```
 
-Renomeando a pasta para nifi.
+### Movendo e já renomeando o diretório descompactado para o /opt/
 
 ```bash
-sudo mv nifi-1.16.3/ nifi
+sudo mv nifi-1.22.0 /opt/nifi
 ```
 
-Mudando a propriedade da pasta nifi para o usuário nifi.
+### Mudando a propriedade do diretório da instalação para o usuário nifi
 
 ```bash
-sudo chown -R nifi:nifi nifi/
+sudo chown -R nifi:nifi /opt/nifi
 ```
 
-Adicione a variável ***‘export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64’*** as variáveis do nifi (Salve e saía do arquivo).
+### Adicione a variável ***JAVA_HOME*** as variáveis do Apache Nifi
+
+Adicione ao arquivo ```nifi-env.sh``` a variável ***JAVA_HOME***.
 
 ```bash
-cd /opt/nifi
-nano nifi/bin/nifi-env.sh
+nano /opt/nifi/bin/nifi-env.sh
 ```
 
-Executando a instalação
+```text
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+```
+
+### Executando a instalação
 
 ```bash
-sudo bin/nifi.sh install
+sudo /opt/nifi/bin/nifi.sh install
 ```
 
-- Configurando o 1º acesso ao Nifi
+### Configurando o 1º acesso ao Nifi
 
-Acesse o arquivo ***‘/opt/nifi/conf/nifi.properties’*** e altere as seguintes variáveis conforme a seguir:
+Acesse o arquivo ***/opt/nifi/conf/nifi.properties*** e altere os seguintes parâmetros conforme a seguir:
 
 ```bash
 nano /opt/nifi/conf/nifi.properties
 ```
 
-***nifi.web.https.host=0.0.0.0***<br>
-***nifi.web.https.port=8443***
+```text
+...
+nifi.web.https.host=0.0.0.0
+nifi.web.https.port=8443
+...
+```
 
-- Ativando o serviço do Nifi
+### Ativando o serviço do Nifi
+
+Opções de serviços  (start|stop|restart|status)
 
 ```bash
 cd ~
-sudo service nifi start (start|stop|restart|status)
+```
+
+```bash
+sudo service nifi start
 ```
 
 ```bash
 service nifi status
 ```
 
-![Apache Nifi](https://drive.google.com/uc?export=view&id=1Di5m_rF3wqrJzpv6qG7n5fAtyOIzBeJj)
+Acesse via: [https://localhost:8443/nifi/](https://localhost:8443/nifi/) 
 
-Acesse via: https://127.0.0.1:8443/nifi/ 
+### Primeiro acesso ao Apache Nifi
 
-- Verificando o arquivo de log do Nifi
+Acesse o navegador e digite a seguinte URL ou simplesmente clique em: [https://localhost:8443/nifi/](https://localhost:8443/nifi/).
+
+Se você for direcionado para tela de login, as credenciais de acesso estão no arquivo de log do nifi.
 
 ```bash
-tail /opt/nifi/logs/nifi-app.log -f
+cat /opt/nifi/logs/nifi-app.log | grep -Ei generated
 ```
 
-## Primeiro acesso ao Apache Nifi
-
-![Apache Nifi](https://drive.google.com/uc?export=view&id=1kP83DoMyTt1BQsPSaH8D4bjd-JdvMriG)
-
->***Observação:*** Se você for direcionado para tela de login, as credenciais de acesso estão no arquivo de log do nifi.
-
-```bash
-nano  /opt/nifi/logs/nifi-app.log
-```
-
-Pesquise por: ***“Generated Username”*** com o comando ***“CTRL + w”***, com isso você vai localizar o usuário e senha do Admin Nifi.
-
-### Exemplo:
-
-```bash
+```text
+...
 Generated Username [***********************************************]
 Generated Password [***********************************************]
+...
 ```
 
-### Pronto! Apache Nifi em funcionamento
+Em posse do usuário e senha é só acessar o apache Nifi.
 
-![Apache Nifi](https://drive.google.com/uc?export=view&id=14jYwCSvjTskyEemHxVbsDE0eIRpOcrE9)
+***Pronto! Apache Nifi em funcionamento...***
+
+### Configurando um novo usuário e senha para o Apache Nifi
+
+- Crie o arquivo ***create-user.sh*** em ***/opt/nifi/bin***  e adicione o seguinte conteúdo:
+
+```text
+#!/bin/bash
+
+# Criando uma senha aleatória para o novo usuário
+PASSWD=$(cat /dev/urandom | tr -dc 'A-Za-z0-9' | head -c 32)
+
+# Definindo o usuário e senha (O usuário que vai ser definido aqui vai ser o da sessão.)
+./bin/nifi.sh set-single-user-credentials $USER $PASSWD
+
+# Salvando usuário e senha do Nifi
+echo "Usuário: $USER\nSenha: $PASSWD" > novas-credenciais-nifi.txt
+echo "Usuário e senha Apache Nifi criados com Sucesso!!!"
+```
+
+- Dê permissão de execução para o arquivo
+
+```bash
+chmod +x create_user.sh
+```
+
+- Para criar usuário e senha execute o seguinte comando
+
+```bash
+sh ./create-user.sh
+```
+
+- Se tudo dê certo, será criado o arquivo ***novas-credenciais-nifi.txt*** com as novas credenciais de acesso ao Nifi.
+
+```bash
+cat novas-credenciais-nifi.txt
+```
+
+```
+...
+Usuário: nifi
+Senha: ******************************************************
+...
+```
+
+### Testando o novo usuário Nifi
+
+Acesse o navegador e digite a seguinte URL ou simplesmente clique em: [https://localhost:8443/](https://localhost:8443/) (se estiver logado com o outro usuário, é só clicar em ```LOGOUT``` no canto superior direito.) e em seguida digite o novo usuário e senha, agora é só utilizar o Apache Nifi agora!!!
+
+### Referência
+
+Docs Nifi, **Apache Nifi**. Disponível em: <https://nifi.apache.org/docs/nifi-docs/>. Acesso em: 17 de out. de 2023.
+
+Single User Access and HTTPS in Apache NiFi, **ExceptionFactory**. Disponível em: <https://exceptionfactory.com/posts/2021/07/21/single-user-access-and-https-in-apache-nifi/>. Acesso em: 17 de out. de 2023
