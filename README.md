@@ -4,7 +4,7 @@
 
 - Ubuntu 20.04
 - Apache Nifi 1.22.0 ou +
-- Java OpenJDK 1.8.0_382 +
+- Java OpenJDK 1.8.0_382
 - Nano 4.8 ou +
 - Wget 1.20.3 ou +
 - Zip/Unzip 3.0 ou +
@@ -77,8 +77,6 @@ source .bashrc
 env | grep -Ei java_home
 ```
 
-***E/Ou***
-
 ```bash
 java -version
 ```
@@ -142,7 +140,7 @@ nifi.web.https.port=8443
 
 ### Ativando o serviço do Nifi
 
-Opções de serviços  (start|stop|restart|status)
+Opções de serviços  ( ***start*** | ***stop*** | ***restart*** | ***status*** )
 
 ```bash
 cd ~
@@ -183,18 +181,15 @@ Em posse do usuário e senha é só acessar o apache Nifi.
 
 - Crie o arquivo ***create-user.sh*** em ***/opt/nifi/bin***  e adicione o seguinte conteúdo:
 
-```text
+```bash
 #!/bin/bash
 
-# Criando uma senha aleatória para o novo usuário
 PASSWD=$(cat /dev/urandom | tr -dc 'A-Za-z0-9' | head -c 32)
-
-# Definindo o usuário e senha (O usuário que vai ser definido aqui vai ser o da sessão.)
-./bin/nifi.sh set-single-user-credentials $USER $PASSWD
-
-# Salvando usuário e senha do Nifi
-echo "Usuário: $USER\nSenha: $PASSWD" > novas-credenciais-nifi.txt
-echo "Usuário e senha Apache Nifi criados com Sucesso!!!"
+./nifi.sh set-single-user-credentials $USER $PASSWD
+echo "User: $USER\nPassword: $PASSWD" > user-nifi.txt
+sudo service nifi restart
+sleep 20
+echo "Apache Nifi username and password created successfully!!!"
 ```
 
 - Dê permissão de execução para o arquivo
@@ -206,16 +201,16 @@ chmod +x create_user.sh
 - Para criar usuário e senha execute o seguinte comando
 
 ```bash
-sh ./create-user.sh
+sudo sh ./create-user.sh
 ```
 
-- Se tudo dê certo, será criado o arquivo ***novas-credenciais-nifi.txt*** com as novas credenciais de acesso ao Nifi.
+- Se tudo dê certo, será criado o arquivo ***user-nifi.txt*** com as novas credenciais de acesso ao Nifi.
 
 ```bash
-cat novas-credenciais-nifi.txt
+cat user-nifi.txt
 ```
 
-```
+```text
 ...
 Usuário: nifi
 Senha: ******************************************************
