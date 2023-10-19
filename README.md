@@ -181,7 +181,7 @@ Em posse do usuário e senha é só acessar o apache Nifi.
 
 - Crie o arquivo ***create-user.sh*** em ***/opt/nifi/bin***  e adicione o seguinte conteúdo:
 
-```bash
+```text
 #!/bin/bash
 
 PASSWD=$(cat /dev/urandom | tr -dc 'A-Za-z0-9' | head -c 32)
@@ -192,13 +192,21 @@ sleep 20
 echo "Apache Nifi username and password created successfully!!!"
 ```
 
+```bash
+cd /opt/nifi/bin
+```
+
+```bash
+nano create-user.sh
+```
+
 - Dê permissão de execução para o arquivo
 
 ```bash
 chmod +x create_user.sh
 ```
 
-- Para criar usuário e senha execute o seguinte comando
+- Para criar usuário e senha execute os seguintes comandos
 
 ```bash
 sudo sh ./create-user.sh
