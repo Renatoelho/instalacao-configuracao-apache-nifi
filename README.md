@@ -220,14 +220,14 @@ cat user-nifi.txt
 
 ```text
 ...
-Usuário: nifi
+Usuário: <User>
 Senha: ******************************************************
 ...
 ```
 
 ### Testando o novo usuário Nifi
 
-Acesse o navegador e digite a seguinte URL ou simplesmente clique em: [https://localhost:8443/](https://localhost:8443/) (se estiver logado com o outro usuário, é só clicar em ```LOGOUT``` no canto superior direito.) e em seguida digite o novo usuário e senha, agora é só utilizar o Apache Nifi agora!!!
+Acesse o navegador e digite a seguinte URL ou simplesmente clique em: [https://localhost:8443/](https://localhost:8443/) (se estiver logado com o outro usuário, é só clicar em ```LOGOUT``` no canto superior direito.) e em seguida digite o novo usuário e senha, agora é só utilizar o Apache Nifi!!!
 
 ### Referência
 
